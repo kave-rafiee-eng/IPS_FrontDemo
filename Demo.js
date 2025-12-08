@@ -1,79 +1,208 @@
-const data = [
-    { Order: 1, SlabNumber: "A4564SA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#9AA7DA" , height : 20 , fontSize:"15px" },
-    { Order: 2, SlabNumber: "A45SDSA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#9AA7DA" , height : 20 , fontSize:"15px" },
-    { Order: 3, SlabNumber: "A45FSSA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#9AA7DA" , height : 20 , fontSize:"15px" },
 
-    { Order: 4, SlabNumber: "A4564SA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#203864" , height : 20 , fontSize:"15px" },
+let weight = 0;
+let F_take;
+let F_put;
+
+function load_end(){
+
+    startConnect();
+
+}
+window.addEventListener("load", load_end);
+
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function updateLocation(data){
+
+  craneCircle.update( data.locX , data.locY);
+
+  document.getElementById("locX").innerHTML = data.locX;
+  document.getElementById("locY").innerHTML = data.locX;
+
+  document.getElementById("speedX").innerHTML = data.speedX/100;
+  if( Math.abs( data.speedX/100 ) > 0 )document.getElementById("speedX").style.background = "red";
+  else document.getElementById("speedX").style.background = "black";
+
+  document.getElementById("speedY").innerHTML = data.speedY/100;
+  if( Math.abs( data.speedY/100 ) > 0 )document.getElementById("speedY").style.background = "red";
+  else document.getElementById("speedY").style.background = "black";
+
+  if( weight != data.W ){
+    if( weight == 0 && data.W > 0 ){
+      F_take = 1;
+    }
+    else if( weight > 0 && data.W == 0 ){
+      F_put = 1;
+    }
+  }
+
+  weight = data.W;
+  document.getElementById("weight").innerHTML = weight * 8;
+  if( weight == 0 ) document.getElementById("weight").style.background = "blue";
+    else document.getElementById("weight").style.background = "red";
+
+}
 
 
-    { Order: 0, SlabNumber: "A4564SA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#ffffffff" , height : 60 , fontSize:"40px" },
+let tableRows = [];
 
-    { Order: -1, SlabNumber: "A4564SA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#FEEE01" , height : 20 , fontSize:"15px" },
+class Order {
+  constructor(x1, y1, x2 , y2 , slabid) {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
+    this.slabid= slabid;
+  }
+}
 
-    { Order: 3, SlabNumber: "A4564SA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#03AB4F" , height : 20 , fontSize:"15px" },
+class Log {
+  constructor(x1, y1, x2 , y2 , slabid , status ) {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
+    this.slabid= slabid;
+    this.status = status;
+  }
+}
 
-    { Order: 3, SlabNumber: "A4564SA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#FD0003" , height : 20 , fontSize:"15px" },
+//-------------------------------------
+
+const tableTest = [
+  
+ { Order: 1, SlabNumber: "A4564SA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#9AA7DA" , height : 20 , fontSize:"15px" },
+  { Order: 4, SlabNumber: "A4564SA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#203864" , height : 20 , fontSize:"15px" },
+
+
+  { Order: 0, SlabNumber: "A4564SA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#504545ff" , height : 60 , fontSize:"40px" },
+
+  { Order: -1, SlabNumber: "A4564SA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#FEEE01" , height : 20 , fontSize:"15px" },
+
+  { Order: 3, SlabNumber: "A4564SA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#03AB4F" , height : 20 , fontSize:"15px" },
+
+  { Order: 3, SlabNumber: "A4564SA", LocationX: 10, LocationY: 20, TargetX: 30, TargetY: 40, color: "#FD0003" , height : 20 , fontSize:"15px" },
 
 ];
 
+function orderGen(){
+  
+  let cols = randomInt(1, 9);
+  let row  = randomInt(1, 5);
 
-const tbody = document.querySelector("#myTable tbody");
+  let colsTarget, rowTarget;
 
-data.forEach(row => {
-  const tr = document.createElement("tr");
-  if(row.color) tr.style.backgroundColor = row.color;
-  if(row.height) tr.style.height = row.height + "px";
-  if(row.fontSize) tr.style.fontSize = row.fontSize;
+  do {
+    colsTarget = randomInt(1, 9);
+    rowTarget  = randomInt(1, 5);
+  } while (colsTarget === cols && rowTarget === row);
+
+  orders.push( new Order( cols*100 , row*100 , colsTarget*100 , rowTarget*100 , "sl"+randomInt( 1234 , 9999)) )
+
+}
+
+let orders = [];
+
+let currentOrder = new Order( 0 , 0 , 0 , 0 , "" )
+const logStatus = Object.freeze({
+  RED: 0,
+  GREEN: 1,
+  YELLOW: 2,
+});
+
+let logs = [];
+
+for( let i=0; i<1; i++ )orderGen();
+/*orders.push( new Order( 0 , 0 , 1 , 1 , "aaa"))
+orders.push( new Order( 0 , 0 , 2 , 2 , "bbb"))
+orders.push( new Order( 0 , 0 , 3 , 3 , "ccc"))
+orders.push( new Order( 0 , 0 , 4 , 4 , "ddd"))
+*/
+/*
+logs.push( new Log(0,0,1,1,"sd",logStatus.RED));
+logs.push( new Log(0,0,1,1,"sd",logStatus.GREEN));
+logs.push( new Log(0,0,1,1,"sd",logStatus.YELLOW));
+*/
 
 
-  // اضافه کردن ستون‌ها
-  const cells = [
-    row.Order,
-    row.SlabNumber,
-    row.LocationX,
-    row.LocationY,
-    row.TargetX,
-    row.TargetY
-  ];
+function tableManage(){
 
-    cells.forEach((cellData, index) => {
-    const td = document.createElement("td");
+  tableRows.length = 0;
 
-    if (index === 0 ) { // ستون SlabNumber
+  // orders
+  orders.slice().reverse().forEach((order, index) => {
 
-        const div = document.createElement("div");
-        //div.className = "badge bg-primary rounded-pill";
-        div.textContent = cellData;
-        div.style.backgroundColor = "#040677ff";
-        div.style.color = "white";
-        div.style.padding = "1px 10px"; 
-        div.style.borderRadius = "4px";
-        div.style.display = "inline-block";
-        div.style.margin = '4px';
-        td.appendChild(div);
-
-    } 
-    else if (index === 1) { // ستون SlabNumber
-        const div = document.createElement("div");
-        div.textContent = cellData;
-        div.style.backgroundColor = "black";
-        div.style.color = "white";
-        div.style.padding = "1px 1px"; 
-        div.style.borderRadius = "4px";
-        div.style.display = "inline-block";
-        div.style.margin = '4px';
-        td.appendChild(div);
-    } else {
-
-        td.textContent = cellData;
-
-        if( row.color === "#ffffffff" )td.style.color = "black";
-        else td.style.color = "white";
-        
+    if ( index == orders.length-1 ){
+      tableRows.push(
+          new TableRow(
+              orders.length - index,
+              order.slabid,
+              order.x1, order.y1,
+              order.x2, order.y2,
+              "#203864",
+              20,
+              "15px"
+          )
+      );
+    }
+    else{
+      tableRows.push(
+          new TableRow(
+              orders.length - index,
+              order.slabid,
+              order.x1, order.y1,
+              order.x2, order.y2,
+              "#9AA7DA",
+              20,
+              "15px"
+          )
+      );
     }
 
-    tr.appendChild(td);
-    });
+  });
 
-  tbody.appendChild(tr);
-});
+
+  tableRows.push(
+      new TableRow(
+          "slab",
+          currentOrder.slabid,
+          currentOrder.x1, currentOrder.y1,
+          currentOrder.x2, currentOrder.y2,
+          "#ffffff",
+          60,
+          "40px"
+      )
+  );
+
+  logs.slice().reverse().forEach((log, index) => {
+
+    if ( log.status == logStatus.GREEN )bgColor="#03AB4F";
+    else if ( log.status == logStatus.RED )bgColor="#FD0003";
+    else if ( log.status == logStatus.YELLOW )bgColor="#d4c601ff";
+    else bgColor="#03AB4F";
+
+    tableRows.push(
+        new TableRow(
+             - index -1 ,
+            log.slabid,
+            log.x1, log.y1,
+            log.x2, log.y2,
+            bgColor,
+            20,
+            "15px"
+        )
+    );
+
+  });
+
+  tableShow(tableRows);
+
+}
+
+const timerId = setInterval(() => {
+  tableManage();
+}, 40);
+
+
