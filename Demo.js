@@ -2,6 +2,8 @@
 let weight = 0;
 let F_take;
 let F_put;
+let weightLogic = 0;
+let weightLogicEdge = 0;
 
 function load_end(){
 
@@ -29,18 +31,31 @@ function updateLocation(data){
   if( Math.abs( data.speedY/100 ) > 0 )document.getElementById("speedY").style.background = "red";
   else document.getElementById("speedY").style.background = "black";
 
-  if( weight != data.W ){
-    if( weight == 0 && data.W > 0 ){
+
+ // weight = Math.floor( data.W*0.95 + weight*0.05 ) ;
+
+  weight = data.W;
+  if( weightLogic == 0 ){
+    if( weight > 12000 )weightLogic=1;
+  }
+  else{
+    if( weight < 8000 )weightLogic=0;
+  }
+  
+
+  if( weightLogicEdge != weightLogic ){
+    if( weightLogic == 1 && weightLogicEdge == 0 ){
       F_take = 1;
     }
-    else if( weight > 0 && data.W == 0 ){
+    else if( weightLogic == 0 && weightLogicEdge == 1 ){
       F_put = 1;
     }
   }
 
-  weight = data.W;
-  document.getElementById("weight").innerHTML = weight * 8;
-  if( weight == 0 ) document.getElementById("weight").style.background = "blue";
+  weightLogicEdge  = weightLogic;
+
+  document.getElementById("weight").innerHTML = weight ;
+  if( weightLogic == 0 ) document.getElementById("weight").style.background = "blue";
     else document.getElementById("weight").style.background = "red";
 
 }

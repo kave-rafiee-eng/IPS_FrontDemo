@@ -122,6 +122,8 @@ function draw() {
 
     } else {
       drawStatus("Out of range", color(180, 0, 0));
+      F_take=0; 
+      F_put=0;
     }
 
   }
