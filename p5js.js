@@ -152,15 +152,16 @@ function draw() {
   //targetCircle.show();
   drawTarget();
 
-    drawSlab();
+  drawSlab();
 
   drawGuidelines();
 
   //slabCircle.show();
 
 
-  if( weightLogic )craneCircle.color = color(255,0,0);
-  else craneCircle.color = color(0,0,255)
+  if( weightLogic )craneCircle.color = color(100,0,0);
+  else craneCircle.color = color(100,100,100,255)
+
   craneCircle.show();
 
   drawGuidCircle();
