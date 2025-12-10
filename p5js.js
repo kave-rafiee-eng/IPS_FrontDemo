@@ -153,7 +153,7 @@ function draw() {
   drawTarget();
 
     drawSlab();
-    
+
   drawGuidelines();
 
   //slabCircle.show();
@@ -172,7 +172,7 @@ function drawTarget(){
   stroke(0, 0, 0, 100);
   strokeWeight(2);
 
-  fill(0,0,0,70)
+  fill(0,0,150,70)
 
   let x = mapLoc( targetCircle.x );
   let y = mapLoc( targetCircle.y );
@@ -193,7 +193,7 @@ function drawGuidelines() {
   stroke(100, 100, 100, 100);
   strokeWeight(1);
   //noFill();
-  fill(255,0,0,40)
+  fill(150,150,150,40)
 
   let x = mapLoc(craneCircle.x);
   let y = mapLoc(craneCircle.y);
@@ -204,7 +204,7 @@ function drawGuidelines() {
 
     rect( x+r-r/4 , height/2 , r/2, height);
 
-  fill(255,0,0,255)
+  fill(150,150,150,255)
 
   rect( x , y , r*2, r*2);
 
