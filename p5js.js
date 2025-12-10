@@ -172,7 +172,7 @@ function drawTarget(){
   stroke(0, 0, 0, 100);
   strokeWeight(2);
 
-  fill(0,0,150,70)
+  fill(0,170,0,70)
 
   let x = mapLoc( targetCircle.x );
   let y = mapLoc( targetCircle.y );
