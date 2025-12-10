@@ -36,10 +36,10 @@ function updateLocation(data){
 
   weight = data.W;
   if( weightLogic == 0 ){
-    if( weight > 12000 )weightLogic=1;
+    if( weight > 14000 )weightLogic=1;
   }
   else{
-    if( weight < 8000 )weightLogic=0;
+    if( weight < 10000 )weightLogic=0;
   }
   
 
