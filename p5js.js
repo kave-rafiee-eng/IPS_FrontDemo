@@ -190,7 +190,7 @@ function drawTarget(){
 function drawGuidelines() {
   stroke(100, 100, 100, 100);
   strokeWeight(1);
-  noFill();
+  //noFill();
   let x = mapLoc(craneCircle.x);
   let y = mapLoc(craneCircle.y);
   let r = craneCircle.r;
