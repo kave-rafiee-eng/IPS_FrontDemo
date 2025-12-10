@@ -24,13 +24,13 @@ function updateLocation(data){
   document.getElementById("locY").innerHTML = data.locX;
 
   document.getElementById("speedX").innerHTML = data.speedX/100;
-  if( Math.abs( data.speedX/100 ) > 0 )document.getElementById("speedX").style.background = "red";
+  /*if( Math.abs( data.speedX/100 ) > 0 )document.getElementById("speedX").style.background = "red";
   else document.getElementById("speedX").style.background = "black";
-
+*/
   document.getElementById("speedY").innerHTML = data.speedY/100;
-  if( Math.abs( data.speedY/100 ) > 0 )document.getElementById("speedY").style.background = "red";
+  /*if( Math.abs( data.speedY/100 ) > 0 )document.getElementById("speedY").style.background = "red";
   else document.getElementById("speedY").style.background = "black";
-
+*/
 
  // weight = Math.floor( data.W*0.95 + weight*0.05 ) ;
 
@@ -114,7 +114,7 @@ function orderGen(){
     rowTarget  = randomInt(1, 4);
   } while (colsTarget === cols && rowTarget === row);
 
-  orders.push( new Order( cols*100 , row*100 , colsTarget*100 , rowTarget*100 , "sl"+randomInt( 1234 , 9999)) )
+  orders.push( new Order( cols*100 , row*100 , colsTarget*100 , rowTarget*100 , "SL"+randomInt( 1234 , 9999)) )
 
 }
 

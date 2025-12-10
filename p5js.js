@@ -267,7 +267,7 @@ function drawSlab(){
   let x = mapLoc( slabCircle.x );
   let y = mapLoc( slabCircle.y );
 
-  rect( x , y , slabCircle.r/2 , slabCircle.r*2  )
+  rect( x , y , slabCircle.r/2 , slabCircle.r*2.5  )
 
   push();
   noFill();
