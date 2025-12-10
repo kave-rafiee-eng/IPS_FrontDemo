@@ -200,13 +200,13 @@ function drawGuidelines() {
   let r = craneCircle.r;
 
   rectMode(CENTER);
-  rect( x-r+r/4 , height/2 , r/2, height);
+  rect( x-r-r/4 , height/2 , r/2, height);
 
-    rect( x+r-r/4 , height/2 , r/2, height);
+  rect( x+r+r/4 , height/2 , r/2, height);
 
   fill(150,150,150,255)
 
-  rect( x , y , r*2, r*2);
+  rect( x , y , r*3, r*2);
 
   strokeWeight(2);
 
@@ -263,7 +263,7 @@ function drawSlab(){
   let x = mapLoc( slabCircle.x );
   let y = mapLoc( slabCircle.y );
 
-  rect( x , y , slabCircle.r , slabCircle.r*1.5  )
+  rect( x , y , slabCircle.r , slabCircle.r*2  )
 
   push();
   noFill();

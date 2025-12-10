@@ -75,7 +75,7 @@ function tableShow( data ){
           div.textContent = cellData;
           div.style.backgroundColor = "#ccccccff";
           div.style.color = "black";
-          div.style.fontSize = '20px';
+          div.style.fontSize = '25px';
           div.style.padding = "1px 10px"; 
           div.style.borderRadius = "4px";
           div.style.display = "inline-block";

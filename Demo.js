@@ -187,7 +187,7 @@ function tableManage(){
           currentOrder.x2, currentOrder.y2,
           "#ffffff",
           60,
-          "40px"
+          "30px"
       )
   );
 
