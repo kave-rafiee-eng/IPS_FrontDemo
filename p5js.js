@@ -247,7 +247,7 @@ function drawStatus(txt, col) {
   fill(col);
   stroke(0, 50);
   strokeWeight(1);
-  textSize(22);
+  textSize(10);
   textStyle(BOLD);
   text(txt, 15, 30);
   pop();
