@@ -49,8 +49,8 @@ function setup() {
   let cnv = createCanvas(container.width-6, container.height);
   cnv.parent(container);
 
-  craneR = width/25;
-  slabR = craneR*1.5;
+  craneR = width/50;
+  slabR = craneR*2;
   targetR = slabR*1.5;
 
   craneCircle = new Circle(100, 100, craneR , color( 52, 172, 224 ) );
@@ -65,10 +65,11 @@ function draw() {
   background(245); // light gray background
 
   let container = select('#canvas-container');
-
+  rectMode(CENTER);
   noFill();
   stroke(0,0,0);
   strokeWeight(4);
+
   rect( width/2 , height/2 , width ,  height )
   // Draw guide lines
 
@@ -150,6 +151,7 @@ function draw() {
   }
 
   //targetCircle.show();
+
   drawTarget();
 
   drawSlab();
@@ -201,13 +203,13 @@ function drawGuidelines() {
   let r = craneCircle.r;
 
   rectMode(CENTER);
-  rect( x-r-r/4 , height/2 , r/2, height);
+  rect( x-r*4 + r/2 , height/2 , r, height);
 
-  rect( x+r+r/4 , height/2 , r/2, height);
+  rect( x+r*4 - r/2 , height/2 , r, height);
 
   fill(150,150,150,255)
 
-  rect( x , y , r*3, r*2);
+  rect( x , y , r*8, r*3);
 
   strokeWeight(2);
 
@@ -264,7 +266,7 @@ function drawSlab(){
   let x = mapLoc( slabCircle.x );
   let y = mapLoc( slabCircle.y );
 
-  rect( x , y , slabCircle.r , slabCircle.r*2  )
+  rect( x , y , slabCircle.r , slabCircle.r*4  )
 
   push();
   noFill();
