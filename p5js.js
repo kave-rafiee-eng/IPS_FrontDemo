@@ -152,10 +152,12 @@ function draw() {
   //targetCircle.show();
   drawTarget();
 
+    drawSlab();
+    
   drawGuidelines();
 
   //slabCircle.show();
-  drawSlab();
+
 
   if( weightLogic )craneCircle.color = color(255,0,0);
   else craneCircle.color = color(0,0,255)
@@ -191,12 +193,18 @@ function drawGuidelines() {
   stroke(100, 100, 100, 100);
   strokeWeight(1);
   //noFill();
+  fill(255,0,0,40)
+
   let x = mapLoc(craneCircle.x);
   let y = mapLoc(craneCircle.y);
   let r = craneCircle.r;
 
   rectMode(CENTER);
-  rect( x , height/2 , r*2, height);
+  rect( x-r+r/4 , height/2 , r/2, height);
+
+    rect( x+r-r/4 , height/2 , r/2, height);
+
+  fill(255,0,0,255)
 
   rect( x , y , r*2, r*2);
 
