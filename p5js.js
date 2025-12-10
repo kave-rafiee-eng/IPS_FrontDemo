@@ -10,6 +10,7 @@ function mapLoc(loc) {
 
 // Circle class
 class Circle {
+
   constructor(x, y, r , color) {
     this.x = x;
     this.y = y;
@@ -35,12 +36,14 @@ class Circle {
     let d = dist(this.x, this.y, other.x, other.y);
     return d + this.r <= other.r;
   }
+
 }
 
 function windowResized() {
 
   let container = select('#canvas-container');
   resizeCanvas(container.width-6, container.height);
+
 }
 
 function setup() {
@@ -50,7 +53,7 @@ function setup() {
   cnv.parent(container);
 
   craneR = width/50;
-  slabR = craneR*2;
+  slabR = craneR*3.5;
   targetR = slabR*1.5;
 
   craneCircle = new Circle(100, 100, craneR , color( 52, 172, 224 ) );
@@ -72,7 +75,6 @@ function draw() {
 
   rect( width/2 , height/2 , width ,  height )
   // Draw guide lines
-
 
   if( currentOrder.slabid != "" ){
 
@@ -159,7 +161,6 @@ function draw() {
   drawGuidelines();
 
   //slabCircle.show();
-
 
   if( weightLogic )craneCircle.color = color(100,0,0);
   else craneCircle.color = color(100,100,100,255)
@@ -266,7 +267,7 @@ function drawSlab(){
   let x = mapLoc( slabCircle.x );
   let y = mapLoc( slabCircle.y );
 
-  rect( x , y , slabCircle.r , slabCircle.r*4  )
+  rect( x , y , slabCircle.r/2 , slabCircle.r*2  )
 
   push();
   noFill();
