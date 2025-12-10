@@ -105,13 +105,13 @@ const tableTest = [
 function orderGen(){
   
   let cols = randomInt(1, 9);
-  let row  = randomInt(1, 5);
+  let row  = randomInt(1, 4);
 
   let colsTarget, rowTarget;
 
   do {
     colsTarget = randomInt(1, 9);
-    rowTarget  = randomInt(1, 5);
+    rowTarget  = randomInt(1, 4);
   } while (colsTarget === cols && rowTarget === row);
 
   orders.push( new Order( cols*100 , row*100 , colsTarget*100 , rowTarget*100 , "sl"+randomInt( 1234 , 9999)) )

@@ -37,9 +37,16 @@ class Circle {
   }
 }
 
-function setup() {
+function windowResized() {
+
   let container = select('#canvas-container');
-  let cnv = createCanvas(container.width-5, container.height-5);
+  resizeCanvas(container.width-6, container.height);
+}
+
+function setup() {
+
+  let container = select('#canvas-container');
+  let cnv = createCanvas(container.width-6, container.height);
   cnv.parent(container);
 
   craneCircle = new Circle(100, 100, 30 , color( 52, 172, 224 ) );
@@ -53,6 +60,12 @@ function setup() {
 function draw() {
   background(245); // light gray background
 
+  let container = select('#canvas-container');
+
+  noFill();
+  stroke(0,0,0);
+  strokeWeight(4);
+  rect( width/2 , height/2 , width ,  height )
   // Draw guide lines
 
 
@@ -214,7 +227,7 @@ function drawSlab(){
   let x = mapLoc( slabCircle.x );
   let y = mapLoc( slabCircle.y );
 
-  rect( x , y , slabCircle.r , slabCircle.r  )
+  rect( x , y , slabCircle.r , slabCircle.r*1.5  )
 
   push();
   noFill();
