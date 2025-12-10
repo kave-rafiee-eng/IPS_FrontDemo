@@ -54,7 +54,7 @@ function setup() {
 
   craneR = width/50;
   slabR = craneR*3.5;
-  targetR = slabR*1.5;
+  targetR = slabR;
 
   craneCircle = new Circle(100, 100, craneR , color( 52, 172, 224 ) );
 
