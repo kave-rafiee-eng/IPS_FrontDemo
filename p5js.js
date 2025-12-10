@@ -1,8 +1,8 @@
 let LocWidth = 10 * 100; // real-world scale
 
-const craneR = 30;
-const slabR = 50;
-const targetR = 70;
+let craneR = 0;
+let slabR = 0;
+let targetR = 0;
 
 function mapLoc(loc) {
   return map(loc, 0, LocWidth, 0, width);
@@ -49,11 +49,15 @@ function setup() {
   let cnv = createCanvas(container.width-6, container.height);
   cnv.parent(container);
 
-  craneCircle = new Circle(100, 100, 30 , color( 52, 172, 224 ) );
+  craneR = width/25;
+  slabR = craneR*1.5;
+  targetR = slabR*1.5;
 
-  slabCircle = new Circle(200, 200, 50 , color(50, 50, 50) );
+  craneCircle = new Circle(100, 100, craneR , color( 52, 172, 224 ) );
 
-  targetCircle = new Circle(300, 300, 70 , color(245,245,245) );
+  slabCircle = new Circle(200, 200, slabR , color(50, 50, 50) );
+
+  targetCircle = new Circle(300, 300, targetR , color(0,0,0,100) );
 
 }
 
@@ -145,8 +149,8 @@ function draw() {
 
   }
 
-
-  targetCircle.show();
+  //targetCircle.show();
+  drawTarget();
 
   drawGuidelines();
 
@@ -161,16 +165,40 @@ function draw() {
 
 }
 
+function drawTarget(){
+
+  stroke(0, 0, 0, 100);
+  strokeWeight(2);
+
+  fill(0,0,0,70)
+
+  let x = mapLoc( targetCircle.x );
+  let y = mapLoc( targetCircle.y );
+
+  rect( x , y , targetCircle.r , targetCircle.r  )
+
+  push();
+  noFill();
+  stroke(50, 50, 50, 180);
+  strokeWeight(2);
+  //ellipse(mapLoc(slabCircle.x), mapLoc(slabCircle.y), mapLoc(slabCircle.r) * 2);
+  pop();
+
+}
+
 // Draw horizontal and vertical guide lines
 function drawGuidelines() {
   stroke(100, 100, 100, 100);
   strokeWeight(1);
+  noFill();
   let x = mapLoc(craneCircle.x);
   let y = mapLoc(craneCircle.y);
   let r = craneCircle.r;
 
   rectMode(CENTER);
-  rect( x , height/2 , r, height);
+  rect( x , height/2 , r*2, height);
+
+  rect( x , y , r*2, r*2);
 
   strokeWeight(2);
 
