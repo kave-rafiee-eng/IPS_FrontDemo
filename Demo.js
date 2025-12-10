@@ -54,7 +54,7 @@ function updateLocation(data){
 
   weightLogicEdge  = weightLogic;
 
-  document.getElementById("weight").innerHTML = weight ;
+  document.getElementById("weight").innerHTML = Math.floor( weight / 1000 ) ;
   if( weightLogic == 0 ) document.getElementById("weight").style.background = "blue";
     else document.getElementById("weight").style.background = "red";
 

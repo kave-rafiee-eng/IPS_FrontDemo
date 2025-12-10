@@ -39,7 +39,7 @@ class Circle {
 
 function setup() {
   let container = select('#canvas-container');
-  let cnv = createCanvas(container.width, container.height);
+  let cnv = createCanvas(container.width-5, container.height-5);
   cnv.parent(container);
 
   craneCircle = new Circle(100, 100, 30 , color( 52, 172, 224 ) );
@@ -54,7 +54,7 @@ function draw() {
   background(245); // light gray background
 
   // Draw guide lines
-  drawGuidelines();
+
 
   if( currentOrder.slabid != "" ){
 
@@ -120,10 +120,14 @@ function draw() {
         orders.shift();
       }
 
+      F_put=0;
+
     } else {
+
       drawStatus("Out of range", color(180, 0, 0));
       F_take=0; 
       F_put=0;
+
     }
 
   }
@@ -131,11 +135,16 @@ function draw() {
 
   targetCircle.show();
 
-  slabCircle.show();
+  drawGuidelines();
+
+  //slabCircle.show();
+  drawSlab();
+
+  if( weightLogic )craneCircle.color = color(255,0,0);
+  else craneCircle.color = color(0,0,255)
   craneCircle.show();
 
-
-
+  drawGuidCircle();
 
 }
 
@@ -150,8 +159,37 @@ function drawGuidelines() {
   rectMode(CENTER);
   rect( x , height/2 , r, height);
 
-  //line(x, y, x, 0); // vertical
-  //line(x, y, 0, y); // horizontal
+  strokeWeight(2);
+
+}
+
+function drawGuidCircle(){
+
+  stroke(255, 255, 255, 255);
+  strokeWeight(2);
+
+  fill(255,255,255)
+
+  let x = mapLoc(craneCircle.x);
+  let y = mapLoc(craneCircle.y);
+  let r = craneCircle.r;
+
+  line(x, y, x+r/2-4, y); // vertical
+  line(x, y, x-r/2+4, y); // horizontal
+
+  line(x, y, x, y+r/2-4); // vertical
+  line(x, y, x, y-r/2+4); // horizontal*/
+
+  /*push();
+  fill(0,0,0);
+  stroke(0, 50);
+  strokeWeight(1);
+  textSize(22);
+  textStyle(BOLD);
+  text(Math.floor(weight/1000)+" ton", x+r, y);
+  pop();*/
+
+
 }
 
 // Draw status text
@@ -164,6 +202,27 @@ function drawStatus(txt, col) {
   textStyle(BOLD);
   text(txt, 15, 30);
   pop();
+}
+
+function drawSlab(){
+
+  stroke(0, 0, 0, 255);
+  strokeWeight(2);
+
+  fill(0,0,0)
+
+  let x = mapLoc( slabCircle.x );
+  let y = mapLoc( slabCircle.y );
+
+  rect( x , y , slabCircle.r , slabCircle.r  )
+
+  push();
+  noFill();
+  stroke(50, 50, 50, 180);
+  strokeWeight(2);
+  //ellipse(mapLoc(slabCircle.x), mapLoc(slabCircle.y), mapLoc(slabCircle.r) * 2);
+  pop();
+
 }
 
 // Move small circle with mouse
