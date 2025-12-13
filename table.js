@@ -83,7 +83,7 @@ function tableShow( data ){
           td.appendChild(div);
 
       } 
-      else if (index === 1) {
+      else if (index == 1 & row.color == '#ffffff' ) {
           const div = document.createElement("div");
           div.textContent = cellData;
           div.style.backgroundColor = "black";
@@ -93,7 +93,19 @@ function tableShow( data ){
           div.style.display = "inline-block";
           div.style.margin = '4px';
           td.appendChild(div);
-      } 
+      }
+      else if (index == 1  ) {
+          const div = document.createElement("div");
+          div.textContent = cellData;
+          div.style.backgroundColor = "black";
+          div.style.color = "white";
+          div.style.padding = "1px 1px"; 
+          div.style.borderRadius = "4px";
+          div.style.display = "inline-block";
+          div.style.margin = '4px';
+          div.style.fontSize = '20px';
+          td.appendChild(div);
+      }
       else {
 
         if( row.color == '#ffffff' && cellData!= 0){
