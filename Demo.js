@@ -50,7 +50,7 @@ function updateLocation(data){
   craneCircle.update( data.locX , data.locY);
 
   document.getElementById("locX").innerHTML = data.locX;
-  document.getElementById("locY").innerHTML = data.locX;
+  document.getElementById("locY").innerHTML = data.locY;
 
   document.getElementById("speedX").innerHTML = data.speedX/100;
   /*if( Math.abs( data.speedX/100 ) > 0 )document.getElementById("speedX").style.background = "red";
