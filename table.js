@@ -104,7 +104,7 @@ function tableShow( data ){
           div.style.borderRadius = "4px";
           div.style.display = "inline-block";
           div.style.margin = '4px';
-          div.style.fontSize = '20px';
+          div.style.fontSize = '15px';
           td.appendChild(div);
       }
       else {
