@@ -27,6 +27,9 @@ const timerConnction = setInterval(() => {
   
 }, 50);
 
+const TimerPub = setInterval(() => {
+  publishMessage("SERVER","{}")
+}, 3000);
 
 function load_end(){
 
