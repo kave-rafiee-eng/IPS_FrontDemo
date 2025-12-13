@@ -92,6 +92,7 @@ function tableShow( data ){
           div.style.borderRadius = "4px";
           div.style.display = "inline-block";
           div.style.margin = '4px';
+          div.style.fontSize = '20px';
           td.appendChild(div);
       }
       else if (index == 1  ) {
