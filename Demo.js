@@ -5,6 +5,29 @@ let F_put;
 let weightLogic = 0;
 let weightLogicEdge = 0;
 
+let connctionStatus = 0;
+let connctionTimeout = 0;
+
+const timerConnction = setInterval(() => {
+
+  connctionTimeout++;
+
+  if( connctionTimeout > 10 ){ connctionTimeout = 0;
+    connctionStatus = 0;
+  }
+
+  if( connctionStatus == 0 ){
+    document.getElementById("status").innerHTML = "Dis..";
+    document.getElementById("status").style.background = "red";
+  } 
+  else {
+    document.getElementById("status").innerHTML = "Connected.";
+    document.getElementById("status").style.background = "green";
+  }
+  
+}, 50);
+
+
 function load_end(){
 
     startConnect();
@@ -17,6 +40,9 @@ function randomInt(min, max) {
 }
 
 function updateLocation(data){
+
+  connctionTimeout = 0;
+  connctionStatus = 1;
 
   craneCircle.update( data.locX , data.locY);
 
